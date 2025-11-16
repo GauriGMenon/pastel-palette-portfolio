@@ -1,47 +1,53 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Book, Lightbulb, Coffee, Pen, Laptop, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import personSilhouette from "@/assets/person-silhouette.png";
+import bookIcon from "@/assets/musing-book.png";
+import lightbulbIcon from "@/assets/musing-lightbulb.png";
+import coffeeIcon from "@/assets/musing-coffee.png";
+import penIcon from "@/assets/musing-pen.png";
+import laptopIcon from "@/assets/musing-laptop.png";
+import brainIcon from "@/assets/musing-brain.png";
 
 const blogPosts = [
   {
     id: 1,
-    icon: Book,
+    icon: bookIcon,
     title: "The Art of Mindful Reading",
     excerpt: "Exploring how slowing down with books can transform your perspective on life and learning.",
     color: "pastel-pink",
   },
   {
     id: 2,
-    icon: Lightbulb,
+    icon: lightbulbIcon,
     title: "Creative Sparks in Daily Life",
     excerpt: "Finding inspiration in the mundane moments and turning them into creative opportunities.",
     color: "pastel-mint",
   },
   {
     id: 3,
-    icon: Coffee,
+    icon: coffeeIcon,
     title: "Coffee Shop Chronicles",
     excerpt: "Stories and observations from my favorite local cafes and the people who frequent them.",
     color: "pastel-yellow",
   },
   {
     id: 4,
-    icon: Pen,
+    icon: penIcon,
     title: "Writing as Therapy",
     excerpt: "How journaling and creative writing became my go-to tools for mental clarity.",
     color: "pastel-purple",
   },
   {
     id: 5,
-    icon: Laptop,
+    icon: laptopIcon,
     title: "Digital Minimalism Journey",
     excerpt: "My experiment with reducing screen time and reclaiming presence in the physical world.",
     color: "pastel-pink",
   },
   {
     id: 6,
-    icon: Brain,
+    icon: brainIcon,
     title: "Learning to Learn Again",
     excerpt: "Rediscovering the joy of learning without the pressure of grades or outcomes.",
     color: "pastel-mint",
@@ -50,21 +56,33 @@ const blogPosts = [
 
 const MusingsHub = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredPerson, setHoveredPerson] = useState(false);
 
   return (
-    <section className="min-h-screen flex items-center justify-center py-20 px-6 bg-pastel-purple">
+    <section className="min-h-[60vh] flex items-center justify-center py-10 px-6 bg-pastel-purple">
       <div className="max-w-6xl w-full">
-        <h2 className="text-5xl md:text-7xl font-bold text-center mb-16 text-background">
+        <h2 className="text-5xl md:text-7xl font-bold text-center mb-12 text-background">
           Musings
         </h2>
 
-        <div className="relative flex items-center justify-center min-h-[600px]">
-          {/* Central Silhouette */}
-          <div className="relative w-32 h-32 md:w-40 md:h-40">
-            <div className="absolute inset-0 rounded-full bg-background/20 backdrop-blur-sm" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-20 md:w-24 md:h-24 rounded-full bg-background/30" />
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-16 md:w-28 md:h-20 rounded-t-full bg-background/30" />
-          </div>
+        <div className="relative flex items-center justify-center min-h-[500px]">
+          {/* Central Person Silhouette */}
+          <Link to="/about">
+            <div 
+              className="relative w-32 h-32 md:w-40 md:h-40 cursor-pointer transition-all duration-300 hover:scale-125"
+              onMouseEnter={() => setHoveredPerson(true)}
+              onMouseLeave={() => setHoveredPerson(false)}
+            >
+              <img 
+                src={personSilhouette} 
+                alt="Person Silhouette"
+                className={cn(
+                  "w-full h-full object-contain transition-all duration-300",
+                  hoveredPerson && "drop-shadow-[0_0_20px_rgba(0,0,0,0.5)] scale-110"
+                )}
+              />
+            </div>
+          </Link>
 
           {/* Icons with arrows */}
           {blogPosts.map((post, index) => {
@@ -72,7 +90,6 @@ const MusingsHub = () => {
             const radius = 250;
             const x = Math.cos(angle) * radius;
             const y = Math.sin(angle) * radius;
-            const Icon = post.icon;
 
             return (
               <div
@@ -109,16 +126,20 @@ const MusingsHub = () => {
                   />
                 </svg>
 
-                {/* Icon Circle */}
+                {/* Icon Image */}
                 <div className="relative">
                   <div
                     className={cn(
-                      "w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-300",
-                      "bg-background/80 backdrop-blur-sm shadow-lg cursor-pointer",
-                      hoveredIndex === index && "scale-110 shadow-xl"
+                      "w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center transition-all duration-300",
+                      "bg-background/80 backdrop-blur-sm shadow-lg cursor-pointer p-3",
+                      hoveredIndex === index && "scale-125 shadow-2xl drop-shadow-[0_0_25px_rgba(0,0,0,0.5)]"
                     )}
                   >
-                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-background" />
+                    <img 
+                      src={post.icon} 
+                      alt={post.title}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
 
                   {/* Blog Card on Hover */}
