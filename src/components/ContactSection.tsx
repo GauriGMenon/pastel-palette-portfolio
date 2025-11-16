@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const ContactSection = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center py-20 px-6 bg-gradient-to-b from-background to-muted">
+    <section className="min-h-[60vh] flex items-center justify-center py-10 px-6 bg-gradient-to-b from-background to-muted">
       <div className="max-w-4xl w-full text-center">
         <h2 className="text-5xl md:text-7xl font-bold mb-8 text-gradient">
           Contact Me

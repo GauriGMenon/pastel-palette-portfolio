@@ -35,7 +35,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20">
       {/* Background Image Gallery */}
       <div className="absolute inset-0">
         {images.map((image, index) => (
